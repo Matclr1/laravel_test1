@@ -49,6 +49,10 @@ class TodoController extends Controller
     }
     public function store(Request $request)
     {
-        dd($request->all());
+        $todo = new Todo();
+        $todo->name = $request->input('name');
+
+        $todo->save();
+        return redirect()->route('todos.index');
     }
 }
