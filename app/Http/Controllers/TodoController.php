@@ -20,21 +20,37 @@ class TodoController extends Controller
         return view('todos.create');
     }
 
-    public function show($id)
+    public function show(Todo $todo)
     {
-        return view('todos.show');
+        return view('todos.show', ['todo' => $todo]);
     }
 
-    public function edit($id)
+    public function edit(Todo $todo)
     {
-        return view('todos.edit');
+        return view('todos.edit', ['todo' => $todo]);
+    }
+
+    public function store(Request $request)
+    {
+        $todo = new Todo();
+        $todo->name = $request->input('name');
+        $todo->description = $request->input('description');
+        $todo->save();
+        return redirect()->route('todos.index');
+    }
+
+    public function update(Request $request, Todo $todo)
+    {
+        $todo->name = $request->input('name');
+        $todo->description = $request->input('description');
+        $todo->save();
+        return redirect()->route('todos.show', ['todo' => $todo->id]);
     }
 
     public function destroy(Todo $todo)
     {
-        Todo::destroy($todo->id);
-        return redirect()->back();
-
+        $todo->delete();
+        return redirect()->route('todos.index');
     }
 
     public function toggle(Todo $todo)
@@ -46,13 +62,5 @@ class TodoController extends Controller
         }
         $todo->save();
         return redirect()->back();
-    }
-    public function store(Request $request)
-    {
-        $todo = new Todo();
-        $todo->name = $request->input('name');
-
-        $todo->save();
-        return redirect()->route('todos.index');
     }
 }
