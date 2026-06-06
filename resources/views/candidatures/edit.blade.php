@@ -6,11 +6,11 @@
     <main class="max-w-2xl mx-auto px-4 py-12">
 
         <header class="mb-8">
-            <a href="{{ route('candidature.index') }}" class="text-sm text-gray-500 hover:text-gray-800 transition">← Retour à la liste</a>
+            <a href="{{ route('candidatures.index') }}" class="text-sm text-gray-500 hover:text-gray-800 transition">← Retour à la liste</a>
             <h1 class="text-2xl font-semibold text-gray-900 mt-2">Modifier la candidature</h1>
         </header>
 
-        <form action="{{ route('candidature.update', ['candidature' => 1]) }}" method="POST"
+        <form action="{{ route('candidatures.update', ['candidature' => 1]) }}" method="POST"
               class="bg-white rounded-xl shadow-sm border border-gray-200 p-6 space-y-6">
             @csrf
             @method('PUT')
@@ -49,7 +49,7 @@
                         class="bg-gray-900 text-white text-sm font-medium px-4 py-2 rounded-lg hover:bg-gray-700 transition">
                     Enregistrer
                 </button>
-                <a href="{{ route('candidature.index') }}"
+                <a href="{{ route('candidatures.index') }}"
                    class="text-sm text-gray-600 hover:text-gray-900 px-3 py-2 rounded-md hover:bg-gray-100 transition">
                     Annuler
                 </a>

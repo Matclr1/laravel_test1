@@ -12,7 +12,7 @@
                 <p class="text-sm text-gray-500 mt-1">3 candidatures · 1 en entretien</p>
             </div>
 
-            <a href="{{ route('candidature.create') }}"
+            <a href="{{ route('candidatures.create') }}"
                class="inline-flex items-center gap-2 bg-gray-900 text-white text-sm font-medium px-4 py-2 rounded-lg hover:bg-gray-700 transition">
                 + Nouvelle candidature
             </a>
@@ -24,7 +24,7 @@
             {{-- Candidature en entretien --}}
             <li class="flex items-center gap-4 px-5 py-4">
                 <div class="flex-1 min-w-0">
-                    <a href="{{ route('candidature.show', ['candidature' => 1]) }}"
+                    <a href="{{ route('candidatures.show', ['candidature' => 1]) }}"
                        class="text-gray-800 hover:underline">Acme Corp</a>
                     <p class="text-sm text-gray-500">Développeur full-stack</p>
                 </div>
@@ -33,11 +33,11 @@
                 <span class="text-sm text-gray-500 tabular-nums">12 mai 2026</span>
 
                 <div class="flex items-center gap-2">
-                    <a href="{{ route('candidature.edit', ['candidature' => 1]) }}"
+                    <a href="{{ route('candidatures.edit', ['candidature' => 1]) }}"
                        class="text-sm text-gray-600 hover:text-gray-900 px-3 py-1 rounded-md hover:bg-gray-100 transition">
                         Modifier
                     </a>
-                    <form action="{{ route('candidature.destroy', ['candidature' => 1]) }}" method="POST" class="inline">
+                    <form action="{{ route('candidatures.destroy', ['candidature' => 1]) }}" method="POST" class="inline">
                         @csrf
                         @method('DELETE')
                         <button type="submit"
@@ -51,7 +51,7 @@
             {{-- Candidature postulée --}}
             <li class="flex items-center gap-4 px-5 py-4">
                 <div class="flex-1 min-w-0">
-                    <a href="{{ route('candidature.show', ['candidature' => 2]) }}"
+                    <a href="{{ route('candidatures.show', ['candidature' => 2]) }}"
                        class="text-gray-800 hover:underline">Pixel Labs</a>
                     <p class="text-sm text-gray-500">UX Designer</p>
                 </div>
@@ -60,11 +60,11 @@
                 <span class="text-sm text-gray-500 tabular-nums">18 mai 2026</span>
 
                 <div class="flex items-center gap-2">
-                    <a href="{{ route('candidature.edit', ['candidature' => 2]) }}"
+                    <a href="{{ route('candidatures.edit', ['candidature' => 2]) }}"
                        class="text-sm text-gray-600 hover:text-gray-900 px-3 py-1 rounded-md hover:bg-gray-100 transition">
                         Modifier
                     </a>
-                    <form action="{{ route('candidature.destroy', ['candidature' => 2]) }}" method="POST" class="inline">
+                    <form action="{{ route('candidatures.destroy', ['candidature' => 2]) }}" method="POST" class="inline">
                         @csrf
                         @method('DELETE')
                         <button type="submit"
@@ -78,7 +78,7 @@
             {{-- Candidature refusée --}}
             <li class="flex items-center gap-4 px-5 py-4">
                 <div class="flex-1 min-w-0">
-                    <a href="{{ route('candidature.show', ['candidature' => 3]) }}"
+                    <a href="{{ route('candidatures.show', ['candidature' => 3]) }}"
                        class="text-gray-800 hover:underline">Datafleet</a>
                     <p class="text-sm text-gray-500">Data Analyst</p>
                 </div>
@@ -87,11 +87,11 @@
                 <span class="text-sm text-gray-500 tabular-nums">30 avr 2026</span>
 
                 <div class="flex items-center gap-2">
-                    <a href="{{ route('candidature.edit', ['candidature' => 3]) }}"
+                    <a href="{{ route('candidatures.edit', ['candidature' => 3]) }}"
                        class="text-sm text-gray-600 hover:text-gray-900 px-3 py-1 rounded-md hover:bg-gray-100 transition">
                         Modifier
                     </a>
-                    <form action="{{ route('candidature.destroy', ['candidature' => 3]) }}" method="POST" class="inline">
+                    <form action="{{ route('candidatures.destroy', ['candidature' => 3]) }}" method="POST" class="inline">
                         @csrf
                         @method('DELETE')
                         <button type="submit"

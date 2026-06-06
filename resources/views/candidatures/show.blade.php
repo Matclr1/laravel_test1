@@ -6,7 +6,7 @@
     <main class="max-w-2xl mx-auto px-4 py-12">
 
         <header class="mb-8">
-            <a href="{{ route('candidature.index') }}" class="text-sm text-gray-500 hover:text-gray-800 transition">← Retour à la liste</a>
+            <a href="{{ route('candidatures.index') }}" class="text-sm text-gray-500 hover:text-gray-800 transition">← Retour à la liste</a>
             <h1 class="text-2xl font-semibold text-gray-900 mt-2">Détails de la candidature</h1>
         </header>
 
@@ -35,12 +35,12 @@
             </div>
 
             <div class="flex items-center gap-3 pt-4 border-t border-gray-200">
-                <a href="{{ route('candidature.edit', ['candidature' => 1]) }}"
+                <a href="{{ route('candidatures.edit', ['candidature' => 1]) }}"
                    class="bg-gray-900 text-white text-sm font-medium px-4 py-2 rounded-lg hover:bg-gray-700 transition">
                     Modifier
                 </a>
 
-                <form action="{{ route('candidature.destroy', ['candidature' => 1]) }}" method="POST" class="inline">
+                <form action="{{ route('candidatures.destroy', ['candidature' => 1]) }}" method="POST" class="inline">
                     @csrf
                     @method('DELETE')
                     <button type="submit"
@@ -67,7 +67,7 @@
                         <p class="text-gray-800">Premier contact avec le recruteur, équipe sympa.</p>
                         <p class="text-xs text-gray-500 mt-1">il y a 2 jours</p>
                     </div>
-                    <form action="{{ route('candidature.notes.destroy', ['candidature' => 1, 'note' => 1]) }}" method="POST">
+                    <form action="{{ route('candidatures.notes.destroy', ['candidature' => 1, 'note' => 1]) }}" method="POST">
                         @csrf
                         @method('DELETE')
                         <button type="submit"
@@ -82,7 +82,7 @@
                         <p class="text-gray-800">Test technique demandé, à rendre avant vendredi.</p>
                         <p class="text-xs text-gray-500 mt-1">hier</p>
                     </div>
-                    <form action="{{ route('candidature.notes.destroy', ['candidature' => 1, 'note' => 2]) }}" method="POST">
+                    <form action="{{ route('candidatures.notes.destroy', ['candidature' => 1, 'note' => 2]) }}" method="POST">
                         @csrf
                         @method('DELETE')
                         <button type="submit"
@@ -94,7 +94,7 @@
 
             </ul>
 
-            <form action="{{ route('candidature.notes.store', ['candidature' => 1]) }}" method="POST"
+            <form action="{{ route('candidatures.notes.store', ['candidature' => 1]) }}" method="POST"
                   class="px-5 py-4 border-t border-gray-200 space-y-3">
                 @csrf
                 <textarea name="content" rows="2"

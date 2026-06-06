@@ -1,8 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\ApplicationController;
-use App\Http\Controllers\ApplicationNoteController;
+use App\Http\Controllers\CandidatureController;
+//use App\Http\Controllers\CandidatureNoteController;
 use App\Http\Controllers\HomepageController;
 use App\Http\Controllers\TodoCommentController;
 use App\Http\Controllers\TodoController;
@@ -29,4 +29,25 @@ Route::prefix('todos')
             });
         });
     });
+
+Route::prefix('candidatures')
+    ->name('candidatures.')
+    ->group(function(){
+        Route::get('/', [CandidatureController::class, 'index'])->name('index');
+        Route::post('/', [CandidatureController::class, 'store'])->name('store');
+        Route::get('/create', [CandidatureController::class, 'create'])->name('create');
+
+        Route::prefix('{candidature}')->group(function () {
+            Route::get('/', [CandidatureController::class, 'show'])->name('show');
+            Route::put('/', [CandidatureController::class, 'update'])->name('update');
+            Route::delete('/', [CandidatureController::class, 'destroy'])->name('destroy');
+            Route::get('/edit', [CandidatureController::class, 'edit'])->name('edit');
+        });
+
+        
+
+        
+
+    });
+
 
