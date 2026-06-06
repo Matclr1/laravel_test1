@@ -16,6 +16,10 @@
                    class="px-3 py-1.5 rounded-md text-gray-600 hover:text-gray-900 hover:bg-gray-100 transition">
                     Todos
                 </a>
+                <a href="{{ route('candidature.index') }}"
+                   class="px-3 py-1.5 rounded-md text-gray-600 hover:text-gray-900 hover:bg-gray-100 transition">
+                    Candidatures
+                </a>
             </div>
         </div>
     </nav>
