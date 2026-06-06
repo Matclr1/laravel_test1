@@ -14,29 +14,47 @@
 
             <div>
                 <p class="text-sm font-medium text-gray-500">Nom</p>
-                <p class="text-gray-900 mt-1">Faire les courses</p>
+                <p class="text-gray-900 mt-1">{{ $todo->name }}</p>
             </div>
+
+            @if($todo->description)
+            <div>
+                <p class="text-sm font-medium text-gray-500">Description</p>
+                <p class="text-gray-700 mt-1">{{ $todo->description }}</p>
+            </div>
+            @endif
 
             <div>
                 <p class="text-sm font-medium text-gray-500">Statut</p>
                 <div class="mt-2 flex items-center gap-2">
-                    <form action="{{ route('todos.toggle', ['todo' => 1]) }}" method="POST" class="shrink-0">
+                    <form action="{{ route('todos.toggle', ['todo' => $todo->id]) }}" method="POST" class="shrink-0">
                         @csrf
                         @method('PATCH')
-                        <button type="submit" title="Marquer comme terminée"
-                                class="h-5 w-5 rounded-full border-2 border-gray-300 hover:border-gray-500 transition cursor-pointer"></button>
+                        @if($todo->completed_at === null)
+                            <button type="submit" title="Marquer comme terminée"
+                                    class="h-5 w-5 rounded-full border-2 border-gray-300 hover:border-gray-500 transition cursor-pointer"></button>
+                        @else
+                            <button type="submit" title="Marquer comme à faire"
+                                    class="h-5 w-5 rounded-full bg-green-500 border-2 border-green-500 hover:bg-green-600 transition cursor-pointer flex items-center justify-center">
+                                <svg class="h-3 w-3 text-white" viewBox="0 0 12 12" fill="none">
+                                    <path d="M2 6l3 3 5-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </button>
+                        @endif
                     </form>
-                    <span class="text-gray-800">À faire</span>
+                    <span class="text-gray-800">
+                        {{ $todo->completed_at ? 'Terminée' : 'À faire' }}
+                    </span>
                 </div>
             </div>
 
             <div class="flex items-center gap-3 pt-4 border-t border-gray-200">
-                <a href="{{ route('todos.edit', ['todo' => 1]) }}"
+                <a href="{{ route('todos.edit', ['todo' => $todo->id]) }}"
                    class="bg-gray-900 text-white text-sm font-medium px-4 py-2 rounded-lg hover:bg-gray-700 transition">
                     Modifier
                 </a>
 
-                <form action="{{ route('todos.destroy', ['todo' => 1]) }}" method="POST" class="inline">
+                <form action="{{ route('todos.destroy', ['todo' => $todo->id]) }}" method="POST" class="inline">
                     @csrf
                     @method('DELETE')
                     <button type="submit"
@@ -53,17 +71,17 @@
 
             <header class="flex items-center justify-between px-6 py-4 border-b border-gray-200">
                 <h2 class="text-lg font-semibold text-gray-900">Commentaires</h2>
-                <span class="text-sm text-gray-500">2 commentaires</span>
+                <span class="text-sm text-gray-500">{{$todo->comments->count()}} commentaires</span>
             </header>
 
             <ul class="divide-y divide-gray-200">
-
+                @forelse($todo->comments as $comment)
                 <li class="flex items-start gap-3 px-5 py-4">
                     <div class="flex-1">
-                        <p class="text-gray-800">N'oublie pas les œufs bio cette fois.</p>
-                        <p class="text-xs text-gray-500 mt-1">il y a 2 heures</p>
+                        <p class="text-gray-800">{{ $comment->content }}</p>
+                        <p class="text-xs text-gray-500 mt-1">{{$comment->created_at->diffForHumans()}}</p>
                     </div>
-                    <form action="{{ route('todos.comments.destroy', ['todo' => 1, 'comment' => 1]) }}" method="POST">
+                    <form action="{{ route('todos.comments.destroy', ['todo' => $todo->id, 'comment' => $comment->id]) }}" method="POST">
                         @csrf
                         @method('DELETE')
                         <button type="submit"
@@ -72,25 +90,12 @@
                         </button>
                     </form>
                 </li>
-
-                <li class="flex items-start gap-3 px-5 py-4">
-                    <div class="flex-1">
-                        <p class="text-gray-800">Vérifier les promos sur le fromage avant d'y aller.</p>
-                        <p class="text-xs text-gray-500 mt-1">hier</p>
-                    </div>
-                    <form action="{{ route('todos.comments.destroy', ['todo' => 1, 'comment' => 2]) }}" method="POST">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit"
-                                class="text-sm text-red-600 hover:text-red-700 px-3 py-1 rounded-md hover:bg-red-50 transition">
-                            Supprimer
-                        </button>
-                    </form>
-                </li>
-
+                    
+                @empty
+                <p class="text-gray-500 px-5 py_4"> Auncun commentaire noté pour cette todo. </p>
+                @endforelse
             </ul>
-
-            <form action="{{ route('todos.comments.store', ['todo' => 1]) }}" method="POST"
+            <form action="{{ route('todos.comments.store', ['todo' => $todo->id]) }}" method="POST"
                   class="px-5 py-4 border-t border-gray-200 space-y-3">
                 @csrf
                 <textarea name="content" rows="2"

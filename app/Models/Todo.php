@@ -14,4 +14,7 @@ class Todo extends Model
         'name',
         'completed_at'
     ];
+    public function comments(){
+      return $this->hasMany(TodoComment::class);
+  }
 }
