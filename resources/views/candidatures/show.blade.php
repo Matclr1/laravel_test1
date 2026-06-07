@@ -25,7 +25,7 @@
             <div>
                 <p class="text-sm font-medium text-gray-500">Statut</p>
                 <p class="mt-2">
-                    <span class="inline-flex items-center px-2 py-0.5 text-xs font-medium rounded-full bg-amber-100 text-amber-800">
+                    
                 @php
                         
                             $badge = [
@@ -36,7 +36,7 @@
                 ][$candidature->status];
                         
                     @endphp
-                    </span>
+                    
                     <span class="inline-flex items-center px-2 py-0.5 text-xs font-medium rounded-full {{ $badge }}">
                         {{ $candidature->status }}
                     </span>
