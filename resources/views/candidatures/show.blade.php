@@ -14,33 +14,47 @@
 
             <div>
                 <p class="text-sm font-medium text-gray-500">Entreprise</p>
-                <p class="text-gray-900 mt-1">Acme Corp</p>
+                <p class="text-gray-900 mt-1">{{ $candidature->company }}</p>
             </div>
 
             <div>
                 <p class="text-sm font-medium text-gray-500">Poste</p>
-                <p class="text-gray-900 mt-1">Développeur full-stack</p>
+                <p class="text-gray-900 mt-1">{{ $candidature->position }}</p>
             </div>
-
+ 
             <div>
                 <p class="text-sm font-medium text-gray-500">Statut</p>
                 <p class="mt-2">
-                    <span class="inline-flex items-center px-2 py-0.5 text-xs font-medium rounded-full bg-amber-100 text-amber-800">Entretien</span>
+                    <span class="inline-flex items-center px-2 py-0.5 text-xs font-medium rounded-full bg-amber-100 text-amber-800">
+                @php
+                        
+                            $badge = [
+                    'Postulée'=> 'bg-blue-100 text-blue-800',
+                    'Entretien' => 'bg-amber-100 text-amber-800',
+                    'Refusée' => 'bg-red-100 text-red-800',
+                    'Acceptée' => 'bg-green-100 text-green-800',
+                ][$candidature->status];
+                        
+                    @endphp
+                    </span>
+                    <span class="inline-flex items-center px-2 py-0.5 text-xs font-medium rounded-full {{ $badge }}">
+                        {{ $candidature->status }}
+                    </span>
                 </p>
             </div>
 
             <div>
                 <p class="text-sm font-medium text-gray-500">Postulée le</p>
-                <p class="text-gray-900 mt-1 tabular-nums">12 mai 2026</p>
+                <p class="text-gray-900 mt-1 tabular-nums">{{ $candidature->applied_at }}</p>
             </div>
 
             <div class="flex items-center gap-3 pt-4 border-t border-gray-200">
-                <a href="{{ route('candidatures.edit', ['candidature' => 1]) }}"
+                <a href="{{ route('candidatures.edit', ['candidature' => $candidature->id]) }}"
                    class="bg-gray-900 text-white text-sm font-medium px-4 py-2 rounded-lg hover:bg-gray-700 transition">
                     Modifier
                 </a>
 
-                <form action="{{ route('candidatures.destroy', ['candidature' => 1]) }}" method="POST" class="inline">
+                <form action="{{ route('candidatures.destroy', ['candidature' => $candidature->id]) }}" method="POST" class="inline">
                     @csrf
                     @method('DELETE')
                     <button type="submit"
@@ -52,7 +66,7 @@
 
         </div>
 
-        {{-- Notes (relation one-to-many : une candidature a plusieurs notes) --}}
+        {{-- Notes (relation one-to-many : une candidature a plusieurs notes)
         <section class="mt-6 bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
 
             <header class="flex items-center justify-between px-6 py-4 border-b border-gray-200">
@@ -108,7 +122,7 @@
                 </div>
             </form>
 
-        </section>
+        </section> --}}
 
     </main>
 @endsection

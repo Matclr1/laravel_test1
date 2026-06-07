@@ -10,20 +10,20 @@
             <h1 class="text-2xl font-semibold text-gray-900 mt-2">Modifier la candidature</h1>
         </header>
 
-        <form action="{{ route('candidatures.update', ['candidature' => 1]) }}" method="POST"
+        <form action="{{ route('candidatures.update', ['candidature' => $candidature->id]) }}" method="POST"
               class="bg-white rounded-xl shadow-sm border border-gray-200 p-6 space-y-6">
             @csrf
             @method('PUT')
 
             <div>
                 <label for="company" class="block text-sm font-medium text-gray-700 mb-1">Entreprise</label>
-                <input type="text" id="company" name="company" value="Acme Corp"
+                <input type="text" id="company" name="company" value="{{ $candidature->company }}"
                        class="w-full border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-gray-900 focus:border-gray-900">
             </div>
 
             <div>
                 <label for="position" class="block text-sm font-medium text-gray-700 mb-1">Poste</label>
-                <input type="text" id="position" name="position" value="Développeur full-stack"
+                <input type="text" id="position" name="position" value="{{ $candidature->position }}"
                        class="w-full border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-gray-900 focus:border-gray-900">
             </div>
 
@@ -31,16 +31,16 @@
                 <label for="status" class="block text-sm font-medium text-gray-700 mb-1">Statut</label>
                 <select id="status" name="status"
                         class="w-full border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-gray-900 focus:border-gray-900">
-                    <option value="postulee">Postulée</option>
-                    <option value="entretien" selected>Entretien</option>
-                    <option value="refusee">Refusée</option>
-                    <option value="acceptee">Acceptée</option>
+                    <option value="postulee" {{ $candidature->status === 'Postulée' ? 'selected' : '' }}>Postulée</option>
+                    <option value="entretien" {{ $candidature->status === 'Entretien' ? 'selected' : '' }}>Entretien</option>
+                    <option value="refusee" {{ $candidature->status === 'Refusée' ? 'selected' : '' }}>Refusée</option>
+                    <option value="acceptee" {{ $candidature->status === 'Acceptée' ? 'selected' : '' }}>Acceptée</option>
                 </select>
             </div>
 
             <div>
                 <label for="applied_at" class="block text-sm font-medium text-gray-700 mb-1">Postulée le</label>
-                <input type="date" id="applied_at" name="applied_at" value="2026-05-12"
+                <input type="date" id="applied_at" name="applied_at" value="{{ $candidature->applied_at }}"
                        class="w-full border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-gray-900 focus:border-gray-900">
             </div>
 

@@ -36,7 +36,7 @@ class CandidatureController extends Controller{
         public function edit(Candidature $candidature){
             return view('candidatures.edit', ['candidature' => $candidature]);
         }
-
+    
         public function update(Request $request, Candidature $candidature){
             $candidature->company= $request->input('company');
             $candidature->position = $request->input('position');

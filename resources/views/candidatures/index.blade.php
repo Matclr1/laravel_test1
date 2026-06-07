@@ -9,7 +9,7 @@
         <header class="flex items-center justify-between mb-8">
             <div>
                 <h1 class="text-2xl font-semibold text-gray-900">Mes candidatures</h1>
-                <p class="text-sm text-gray-500 mt-1">3 candidatures · 1 en entretien</p>
+                <p class="text-sm text-gray-500 mt-1">{{ $candidatures->count() }} candidatures · {{ $entretiens }} entretiens</p>
             </div>
 
             <a href="{{ route('candidatures.create') }}"
@@ -21,23 +21,31 @@
         {{-- Liste des candidatures --}}
         <ul class="bg-white rounded-xl shadow-sm border border-gray-200 divide-y divide-gray-200">
 
-            {{-- Candidature en entretien --}}
-            <li class="flex items-center gap-4 px-5 py-4">
-                <div class="flex-1 min-w-0">
-                    <a href="{{ route('candidatures.show', ['candidature' => 1]) }}"
-                       class="text-gray-800 hover:underline">Acme Corp</a>
-                    <p class="text-sm text-gray-500">Développeur full-stack</p>
-                </div>
+            @forelse ($candidatures as $candidature)
+                @php
+                $badge = [
+                    'Postulée'=> 'bg-blue-100 text-blue-800',
+                    'Entretien' => 'bg-amber-100 text-amber-800',
+                    'Refusée' => 'bg-red-100 text-red-800',
+                    'Acceptée' => 'bg-green-100 text-green-800',
+                ][$candidature->status];
+                @endphp
+                    <li class="flex items-center gap-4 px-5 py-4">
+                        <div class="flex-1 min-w-0">
+                            <a href="{{ route('candidatures.show', ['candidature' => $candidature->id]) }}"
+                               class="text-gray-800 hover:underline">{{ $candidature->company }}</a>
+                            <p class="text-sm text-gray-500">{{ $candidature->position }}</p>
+                        </div>
 
-                <span class="inline-flex items-center px-2 py-0.5 text-xs font-medium rounded-full bg-amber-100 text-amber-800">Entretien</span>
-                <span class="text-sm text-gray-500 tabular-nums">12 mai 2026</span>
+                <span class="inline-flex items-center px-2 py-0.5 text-xs font-medium rounded-full {{$badge}}">{{ $candidature->status }}</span>
+                <span class="text-sm text-gray-500 tabular-nums">{{ $candidature->applied_at }}</span>
 
                 <div class="flex items-center gap-2">
-                    <a href="{{ route('candidatures.edit', ['candidature' => 1]) }}"
+                    <a href="{{ route('candidatures.edit', ['candidature' => $candidature->id]) }}"
                        class="text-sm text-gray-600 hover:text-gray-900 px-3 py-1 rounded-md hover:bg-gray-100 transition">
                         Modifier
                     </a>
-                    <form action="{{ route('candidatures.destroy', ['candidature' => 1]) }}" method="POST" class="inline">
+                    <form action="{{ route('candidatures.destroy', ['candidature' => $candidature->id]) }}" method="POST" class="inline">
                         @csrf
                         @method('DELETE')
                         <button type="submit"
@@ -47,62 +55,15 @@
                     </form>
                 </div>
             </li>
-
-            {{-- Candidature postulée --}}
-            <li class="flex items-center gap-4 px-5 py-4">
-                <div class="flex-1 min-w-0">
-                    <a href="{{ route('candidatures.show', ['candidature' => 2]) }}"
-                       class="text-gray-800 hover:underline">Pixel Labs</a>
-                    <p class="text-sm text-gray-500">UX Designer</p>
-                </div>
-
-                <span class="inline-flex items-center px-2 py-0.5 text-xs font-medium rounded-full bg-blue-100 text-blue-800">Postulée</span>
-                <span class="text-sm text-gray-500 tabular-nums">18 mai 2026</span>
-
-                <div class="flex items-center gap-2">
-                    <a href="{{ route('candidatures.edit', ['candidature' => 2]) }}"
-                       class="text-sm text-gray-600 hover:text-gray-900 px-3 py-1 rounded-md hover:bg-gray-100 transition">
-                        Modifier
-                    </a>
-                    <form action="{{ route('candidatures.destroy', ['candidature' => 2]) }}" method="POST" class="inline">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit"
-                                class="text-sm text-red-600 hover:text-red-700 px-3 py-1 rounded-md hover:bg-red-50 transition">
-                            Supprimer
-                        </button>
-                    </form>
-                </div>
+              
+                @empty
+            <li class="px-5 py-4 text-center text-sm text-gray-600">
+                Aucune candidature pour le moment. Cliquez sur "Nouvelle candidature"!
+            
             </li>
 
-            {{-- Candidature refusée --}}
-            <li class="flex items-center gap-4 px-5 py-4">
-                <div class="flex-1 min-w-0">
-                    <a href="{{ route('candidatures.show', ['candidature' => 3]) }}"
-                       class="text-gray-800 hover:underline">Datafleet</a>
-                    <p class="text-sm text-gray-500">Data Analyst</p>
-                </div>
-
-                <span class="inline-flex items-center px-2 py-0.5 text-xs font-medium rounded-full bg-red-100 text-red-800">Refusée</span>
-                <span class="text-sm text-gray-500 tabular-nums">30 avr 2026</span>
-
-                <div class="flex items-center gap-2">
-                    <a href="{{ route('candidatures.edit', ['candidature' => 3]) }}"
-                       class="text-sm text-gray-600 hover:text-gray-900 px-3 py-1 rounded-md hover:bg-gray-100 transition">
-                        Modifier
-                    </a>
-                    <form action="{{ route('candidatures.destroy', ['candidature' => 3]) }}" method="POST" class="inline">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit"
-                                class="text-sm text-red-600 hover:text-red-700 px-3 py-1 rounded-md hover:bg-red-50 transition">
-                            Supprimer
-                        </button>
-                    </form>
-                </div>
-            </li>
-
+            @endforelse
         </ul>
-
+               
     </main>
 @endsection

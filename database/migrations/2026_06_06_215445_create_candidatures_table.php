@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('company');
             $table->string('position');
-            $table->enum('status',['Postulé', 'Entretien', 'Refusé', 'Accepté'])->default('Postulé');
+            $table->enum('status',['Postulée', 'Entretien', 'Refusée', 'Acceptée'])->default('Postulée');
             $table->date('applied_at');
             $table->timestamps();
         });

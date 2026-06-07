@@ -32,10 +32,10 @@
                 <label for="status" class="block text-sm font-medium text-gray-700 mb-1">Statut</label>
                 <select id="status" name="status"
                         class="w-full border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-gray-900 focus:border-gray-900">
-                    <option value="postulee">Postulée</option>
-                    <option value="entretien">Entretien</option>
-                    <option value="refusee">Refusée</option>
-                    <option value="acceptee">Acceptée</option>
+                    <option value="Postulée">Postulée</option>
+                    <option value="Entretien">Entretien</option>
+                    <option value="Refusée">Refusée</option>
+                    <option value="Acceptée">Acceptée</option>
                 </select>
             </div>
 
